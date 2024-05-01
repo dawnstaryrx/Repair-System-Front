@@ -93,10 +93,10 @@
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <select @click="getPageInfo()" v-model="TypeListSearchInfo.pageSize" class="form-select" aria-label="Default select example" style="width: 120px;">
-          <option value="2" selected>2</option>
-          <option value="5">5</option>
-          <option value="10">10条每页</option>
+          <option value="10" selected>10</option>
           <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
         </select>
         <li class="page-item">
           <a class="page-link" @click="this.TypeListSearchInfo.pageNum -= 1; getPageInfo()" href="#" aria-label="Previous">

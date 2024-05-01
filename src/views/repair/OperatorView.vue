@@ -32,6 +32,10 @@
         </div>
         <div class="modal-body">
           <form class="row g-3">
+            <div class="col-md-12">
+              <label  for="orderNumberAdd" class="form-label">维修单号</label>
+              <input v-model="repairRequestInfo.orderNumber" type="text" class="form-control" id="orderNumberAdd">
+            </div>
             <div class="col-md-6">
               <label for="customerAdd" class="form-label">客户</label>
               <select v-model="repairRequestInfo.customerId" id="customerAdd" class="form-select" aria-label="Default select example">
@@ -93,7 +97,8 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">流水号</th>
+        <!-- <th scope="col">流水号</th> -->
+        <th scope="col">维修单号</th>
         <th scope="col">状态</th>
         <th scope="col">客户名</th>
         <th scope="col">工程师名</th>
@@ -113,7 +118,8 @@
     <tbody>
       <tr v-for="(repairRequest, index) in this.repairRequestPageList" :key="index">
         <th scope="row"> {{ index+1 }} </th>
-        <td>{{ repairRequest.id }}</td>
+        <!-- <td>{{ repairRequest.id }}</td> -->
+        <td>{{ repairRequest.orderNumber }}</td>
         <td v-if="getStatus(repairRequest.id).status != null">
           <span v-if="getStatus(repairRequest.id).status == 0" style="background-color: red; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
           <span v-else-if="getStatus(repairRequest.id).status == 1" style="background-color: orange; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
@@ -144,6 +150,10 @@
                 </div>
                 <div class="modal-body" style="text-align: left;">
                   <form class="row g-3">
+                    <div class="col-md-12">
+                      <label  for="orderNumberLook" class="form-label">维修单号</label>
+                      <input :value="repairRequest.orderNumber" type="text" class="form-control" id="orderNumberLook" readonly>
+                    </div>
                     <div class="col-md-6">
                       <label for="requestIdLook" class="form-label">维修请求ID</label>
                       <input type="text" class="form-control" id="requestIdLook" :value="repairRequest.id" readonly>
@@ -205,7 +215,7 @@
               </div>
             </div>
           </div>
-          <button @click="updateUpdateData(repairRequest.id, repairRequest.customerId, repairRequest.engineerId, repairRequest.serviceDate, repairRequest.serviceContent, repairRequest.serviceType, repairRequest.productType, repairRequest.productModel, repairRequest.productId)" type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getEditBtnId(repairRequest.id)>
+          <button @click="updateUpdateData(repairRequest.id,repairRequest.orderNumber, repairRequest.customerId, repairRequest.engineerId, repairRequest.serviceDate, repairRequest.serviceContent, repairRequest.serviceType, repairRequest.productType, repairRequest.productModel, repairRequest.productId)" type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getEditBtnId(repairRequest.id)>
             编辑
           </button>
           <!-- 编辑Modal -->
@@ -218,6 +228,10 @@
                 </div>
                 <div class="modal-body" style="text-align: left;">
                   <form class="row g-3">
+                    <div class="col-md-12">
+                      <label  for="orderNumberUpdate" class="form-label">维修单号</label>
+                      <input v-model="repairRequestUpdateInfo.orderNumber" type="text" class="form-control" id="orderNumberUpdate">
+                    </div>
                     <div class="col-md-6">
                       <label for="requestIdLook" class="form-label">维修请求ID</label>
                       <input type="text" class="form-control" id="requestIdLook" :value="repairRequest.id" readonly>
@@ -309,7 +323,29 @@
       </tr>
     </tbody>
   </table>
-
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <select @click="getPageInfo()" v-model="repairRequestPageSearchInfo.pageSize" class="form-select" aria-label="Default select example" style="width: 100px;">
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+      </select>
+      <li class="page-item">
+        <a class="page-link" @click="this.repairRequestPageSearchInfo.pageNum -= 1; getPageInfo()" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item"><a @click="this.repairRequestPageSearchInfo.pageNum = 1; getPageInfo()" class="page-link" href="#">1</a></li>
+      <li class="page-item"><a @click="this.repairRequestPageSearchInfo.pageNum = 2; getPageInfo()" class="page-link" href="#">2</a></li>
+      <li class="page-item"><a @click="this.repairRequestPageSearchInfo.pageNum = 3; getPageInfo()" class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" @click="this.repairRequestPageSearchInfo.pageNum += 1; getPageInfo()" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -334,6 +370,7 @@ export default {
       productIdUpdateList:{},
 
       repairRequestInfo:{
+        orderNumber: "",
         customerId: "",
         engineerId:"",
         serviceDate:"",
@@ -355,6 +392,7 @@ export default {
       },
       repairRequestUpdateInfo:{
         id:null,
+        orderNumber: "",
         customerId:null,
         engineerId:null,
         serviceDate:"",
@@ -388,8 +426,9 @@ export default {
       this.repairRequestPageSearchInfo.sortByTime = !this.repairRequestPageSearchInfo.sortByTime
       this.repairRequestPageList = getRepairRequestListService(this.repairRequestPageSearchInfo).data.items
     },
-    updateUpdateData(id, customerId, engineerId, serviceDate, serviceContent, serviceType, productType, productModel, productId){
+    updateUpdateData(id,orderNumber, customerId, engineerId, serviceDate, serviceContent, serviceType, productType, productModel, productId){
       this.repairRequestUpdateInfo.id = id
+      this.repairRequestUpdateInfo.orderNumber = orderNumber
       this.repairRequestUpdateInfo.customerId = customerId
       this.repairRequestUpdateInfo.engineerId = engineerId
       this.repairRequestUpdateInfo.serviceDate = serviceDate
@@ -463,6 +502,7 @@ export default {
       if(result.code === 0){
           alertUtil.message(result.message, "success");
           this.repairRequestInfo = {
+            orderNumber: "",
             customerId: "",
             engineerId:"",
             serviceDate:"",

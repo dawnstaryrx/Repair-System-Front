@@ -22,7 +22,8 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">流水号</th>
+        <!-- <th scope="col">流水号</th> -->
+        <th scope="col">维修单号</th>
         <th scope="col">状态</th>
         <th scope="col">客户名</th>
         <th scope="col">服务日期</th>
@@ -40,7 +41,8 @@
     <tbody>
       <tr v-for="(repairRequest, index) in this.repairRequestPageList" :key="index">
         <th scope="row"> {{ index+1 }} </th>
-        <td>{{ repairRequest.id }}</td>
+        <!-- <td>{{ repairRequest.id }}</td> -->
+        <td>{{ repairRequest.orderNumber }}</td>
         <td>
           <span v-if="getStatus(repairRequest.id).status == 0" style="background-color: red; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
           <span v-else-if="getStatus(repairRequest.id).status == 1" style="background-color: orange; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
@@ -68,6 +70,10 @@
                 </div>
                 <div class="modal-body" style="text-align: left;">
                   <form class="row g-3">
+                    <div class="col-md-12">
+                      <label  for="orderNumberLook" class="form-label">维修单号</label>
+                      <input :value="repairRequest.orderNumber" type="text" class="form-control" id="orderNumberLook" readonly>
+                    </div>
                     <div class="col-md-6">
                       <label for="requestIdLook" class="form-label">流水号</label>
                       <input type="text" class="form-control" id="requestIdLook" :value="repairRequest.id" readonly>
@@ -132,7 +138,7 @@
           <button v-if="getStatus(repairRequest.id).status == 0 || getStatus(repairRequest.id).status == 1" @click="repairSetId(repairRequest.id)" type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getRepairBtnId(repairRequest.id)>
             新增维修
           </button>
-          <!-- 查看Modal -->
+          <!-- 维修Modal -->
           <div class="modal fade" :id=getRepairModelId(repairRequest.id) tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -142,6 +148,10 @@
                 </div>
                 <div class="modal-body" style="text-align: left;">
                   <form class="row g-3">
+                    <div class="col-md-12">
+                      <label  for="orderNumberLook" class="form-label">维修单号</label>
+                      <input :value="repairRequest.orderNumber" type="text" class="form-control" id="orderNumberLook" readonly>
+                    </div>
                     <div class="col-md-6">
                       <label for="requestIdUpdate" class="form-label">维修请求流水号</label>
                       <input v-model="repairAddInfo.repairRequestId" type="text" class="form-control" id="requestIdUpdate"  readonly>
@@ -206,7 +216,29 @@
       </tr>
     </tbody>
   </table>
-
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <select @click="getPageInfo()" v-model="repairRequestPageSearchInfo.pageSize" class="form-select" aria-label="Default select example" style="width: 100px;">
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+      </select>
+      <li class="page-item">
+        <a class="page-link" @click="this.repairRequestPageSearchInfo.pageNum -= 1; getPageInfo()" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item"><a @click="this.repairRequestPageSearchInfo.pageNum = 1; getPageInfo()" class="page-link" href="#">1</a></li>
+      <li class="page-item"><a @click="this.repairRequestPageSearchInfo.pageNum = 2; getPageInfo()" class="page-link" href="#">2</a></li>
+      <li class="page-item"><a @click="this.repairRequestPageSearchInfo.pageNum = 3; getPageInfo()" class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" @click="this.repairRequestPageSearchInfo.pageNum += 1; getPageInfo()" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -257,6 +289,9 @@ export default {
     this.repairRequestPageList = getRepairRequestListService(this.repairRequestPageSearchInfo).data.items
   },
   methods:{
+    getPageInfo(){
+      this.repairRequestPageList = getRepairRequestListService(this.repairRequestPageSearchInfo).data.items
+    },
     repairSetId(id){
       this.repairAddInfo.repairRequestId = id
     },
@@ -291,9 +326,6 @@ export default {
     },
     getUsernameById(id){
       return getUserInfoByIdService(id).data.name
-    },
-    getPageInfo(){
-      this.repairRequestPageList = getRepairRequestListService(this.repairRequestPageSearchInfo).data.items
     },
   },
 }

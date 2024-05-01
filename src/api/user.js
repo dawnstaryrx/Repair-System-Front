@@ -1,5 +1,55 @@
 import $ from 'jquery'
 import { useTokenStore } from '@/stores/token.js'
+import { BASE_URL } from '@/utils/commonUtil'
+
+// 获取客户列表
+export const getUserListService = (userListSearchInfo) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: BASE_URL + "/user",
+        type: "get",
+        data: userListSearchInfo,
+        async: false,
+        success(resp) {
+            result = resp;
+        },
+        error(resp) {
+            result = resp;
+        }
+    })
+    return result;
+}
+
+// 获取用户是不是某角色
+export const getUserIsRoleService = (id, role) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: BASE_URL + "/user/manage/role",
+        type: "get",
+        data: {
+            id: id,
+            role: role
+        },
+        async: false,
+        success(resp) {
+            result = resp;
+        },
+        error(resp) {
+            result = resp;
+        }
+    })
+    return result;
+}
 
 // 获取当前用户信息
 export const userInfoService = () => {

@@ -5,7 +5,8 @@
       <thead>
         <tr>
           <th scope="col">回访次数</th>
-          <th scope="col">维修请求流水号</th>
+          <!-- <th scope="col">维修请求流水号</th> -->
+          <th scope="col">维修单号</th>
           <th scope="col">客户</th>
           <th scope="col">工程师</th>
           <th scope="col">评价</th>
@@ -17,7 +18,8 @@
       <tbody>
         <tr v-for="(repairRevisit, index) in this.repairRevisits" :key="index">
           <th scope="row">{{ index+1 }}</th>
-          <td>{{ repairRevisit.repairRequestId }}</td>
+          <!-- <td>{{ repairRevisit.repairRequestId }}</td> -->
+          <td>{{ getRepairRequestInfoById(repairRevisit.repairRequestId).orderNumber }}</td>
           <td>{{ getRepairRequestInfoById(repairRevisit.repairRequestId).customerName }}</td>
           <td>{{ getRepairRequestInfoById(repairRevisit.repairRequestId).engineerName }}</td>
           <td>{{ repairRevisit.evaluateName }}</td>

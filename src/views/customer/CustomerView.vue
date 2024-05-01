@@ -240,10 +240,10 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <select @click="getPageInfo()" v-model="customerSearchInfo.pageSize" class="form-select" aria-label="Default select example" style="width: 100px;">
-      <option value="2" selected>2</option>
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="3">Three</option>
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="50">50</option>
     </select>
     <li class="page-item">
       <a class="page-link" @click="this.customerSearchInfo.pageNum -= 1; getPageInfo()" href="#" aria-label="Previous">

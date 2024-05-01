@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse justify-content-right" id="navbarText" style="width: 100%;">
       <ul class="navbar-nav">
           <li class="nav-item">
-              <a class="nav-link" href="http://www.goldgirder.com/" target="_blank">北京金宏瑞达科技有限公司</a>
+              <a :href="this.computerInfo.computerSite" class="nav-link"  target="_blank">{{ this.computerInfo.computerName }}</a>
           </li>
       </ul>
       <div class="collapse navbar-collapse justify-content-end" id="navbarText">
@@ -40,17 +40,25 @@
 <script>
 import { useUserInfoStore } from '@/stores/userInfo.js'
 import { useTokenStore } from '@/stores/token.js'
+import {getComputerInfoService} from '@/api/constant.js'
 import router from '@/router';
 
 export default {
   data(){
     return{
       nowUser:{},
+      computerInfo:{}
     }
   },
   created() {
       const userInfoStore = useUserInfoStore()
       this.nowUser = userInfoStore.info
+      this.computerInfo = getComputerInfoService().data
+      // console.log(this.computerInfo)
+  },
+  mounted(){
+    // this.computerInfo = getComputerInfoService().data
+    //   console.log(this.computerInfo)
   },
   methods:{
     logout() {

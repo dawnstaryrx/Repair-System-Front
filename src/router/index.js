@@ -13,6 +13,9 @@ import ProductTypeView from '@/views/product/ProductTypeView.vue';
 import ProductInfoView from '@/views/product/ProductInfoView.vue';
 import RepairServiceListView from '@/views/repair/RepairServiceListView.vue'
 import RepairRevisitListView from '@/views/repair/RepairRevisitListView.vue'
+import SettingView from '@/views/setting/SettingView.vue';
+import ManageView from '@/views/manage/ManageView.vue';
+import PrintView from '@/views/print/PrintView.vue';
 
 const routes = [
   {
@@ -54,6 +57,30 @@ const routes = [
             component: RepairListView
           },
         ]
+      },
+      {
+        path: "/setting",
+        name: "setting",
+        component: SettingView,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: "/print",
+        name: "print",
+        component: PrintView,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: "/manage",
+        name: "manage",
+        component: ManageView,
+        meta: {
+          requireAuth: true
+        }
       },
       {
         path: '/product',

@@ -52,11 +52,11 @@ import router from '@/router';
 export default {
   data(){
     return{
-        registerData: {
-          username: '',
-          name: '',
-          password: '',
-          rePassword: ''
+      registerData: {
+        username: '',
+        name: '',
+        password: '',
+        rePassword: ''
       },
     }
   },

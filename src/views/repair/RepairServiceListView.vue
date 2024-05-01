@@ -5,7 +5,8 @@
       <thead>
         <tr>
           <th scope="col">维修次数</th>
-          <th scope="col">维修请求流水号</th>
+          <!-- <th scope="col">维修请求流水号</th> -->
+          <th scope="col">维修单号</th>
           <th scope="col">到达日期</th>
           <th scope="col">到达时间</th>
           <th scope="col">完成时间</th>
@@ -20,7 +21,8 @@
       <tbody>
         <tr v-for="(repair, index) in this.repairList" :key="index">
           <th scope="row">{{ index+1 }}</th>
-          <td>{{ repair.repairRequestId }}</td>
+          <!-- <td>{{ repair.repairRequestId }}</td> -->
+          <td>{{ getRequestInfo(repair.repairRequestId).orderNumber }}</td>
           <td>{{ repair.arriveDate }}</td>
           <td>{{ repair.arriveTime }}</td>
           <td>{{ repair.completeTime }}</td>
@@ -40,6 +42,7 @@
 import LayOutTop from '@/components/LayOutTop.vue'
 import {getRepairByIdService} from '@/api/repair.js'
 import {getUserInfoByIdService} from '@/api/user.js'
+import {getRepairRequestByIdService} from '@/api/repairRequest.js'
 
 export default {
   components: { LayOutTop },
@@ -57,6 +60,9 @@ export default {
     getUsernameById(id){
       return getUserInfoByIdService(id).data.name
     },
+    getRequestInfo(id){
+      return getRepairRequestByIdService(id).data
+    }
   }
 }
 </script>
