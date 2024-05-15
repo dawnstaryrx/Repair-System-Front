@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse justify-content-right" id="navbarText" style="width: 100%;">
       <ul class="navbar-nav">
           <li class="nav-item">
-              <a :href="this.computerInfo.computerSite" class="nav-link"  target="_blank">{{ this.computerInfo.computerName }}</a>
+              <a :href="this.companyInfo.companySite" class="nav-link"  target="_blank">{{ this.companyInfo.companyName }}</a>
           </li>
       </ul>
       <div class="collapse navbar-collapse justify-content-end" id="navbarText">
@@ -21,8 +21,8 @@
                     欢迎您，{{ nowUser.name }}
                   </a>
                   <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">个人资料</a>
-                      <a class="dropdown-item" href="#">修改密码</a>
+                      <router-link class="dropdown-item" :to="{name:'MyInfo'}">个人资料</router-link>
+                      <router-link class="dropdown-item" :to="{name:'MyReset'}">修改密码</router-link>
                       <a class="dropdown-item" @click="logout()" href="#">退出登录</a>
                   </div>
               </li>
@@ -40,25 +40,20 @@
 <script>
 import { useUserInfoStore } from '@/stores/userInfo.js'
 import { useTokenStore } from '@/stores/token.js'
-import {getComputerInfoService} from '@/api/constant.js'
+import {getCompanyInfoService} from '@/api/constant.js'
 import router from '@/router';
 
 export default {
   data(){
     return{
       nowUser:{},
-      computerInfo:{}
+      companyInfo:{}
     }
   },
   created() {
       const userInfoStore = useUserInfoStore()
       this.nowUser = userInfoStore.info
-      this.computerInfo = getComputerInfoService().data
-      // console.log(this.computerInfo)
-  },
-  mounted(){
-    // this.computerInfo = getComputerInfoService().data
-    //   console.log(this.computerInfo)
+      this.companyInfo = getCompanyInfoService().data
   },
   methods:{
     logout() {

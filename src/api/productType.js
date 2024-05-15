@@ -2,6 +2,9 @@ import $ from 'jquery'
 import {
     useTokenStore
 } from '@/stores/token.js'
+import {
+    BASE_URL
+} from '@/utils/commonUtil'
 
 // 新增产品类型
 export const typeAddService = (name) => {
@@ -12,7 +15,7 @@ export const typeAddService = (name) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/type",
+        url: BASE_URL + "/type",
         data: {
             name: name,
         },
@@ -37,7 +40,7 @@ export const getTypeListService = (TypeListSearchInfo) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/type",
+        url: BASE_URL + "/type",
         type: "get",
         data: TypeListSearchInfo,
         async: false,
@@ -59,7 +62,7 @@ export const getAllTypeService = () => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/type/all",
+        url: BASE_URL + "/type/all",
         type: "get",
         async: false,
         success(resp) {
@@ -81,7 +84,7 @@ export const typeDeleteService = (id) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/type",
+        url: BASE_URL + "/type",
         type: "delete",
         data: {
             id: id,

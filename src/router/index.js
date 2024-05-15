@@ -16,6 +16,8 @@ import RepairRevisitListView from '@/views/repair/RepairRevisitListView.vue'
 import SettingView from '@/views/setting/SettingView.vue';
 import ManageView from '@/views/manage/ManageView.vue';
 import PrintView from '@/views/print/PrintView.vue';
+import InfoView from '@/views/my/InfoView.vue'
+import ResetPwdView from '@/views/my/ResetPwdView.vue'
 
 const routes = [
   {
@@ -102,6 +104,22 @@ const routes = [
         path: '/dashboard',
         name: 'dashboard',
         component: DashboardView
+      },
+      {
+        path: '/my',
+        name: 'my',
+        children:[
+          {
+            path: 'info',
+            name: 'MyInfo',
+            component: InfoView
+          },
+          {
+            path: 'reset',
+            name: 'MyReset',
+            component: ResetPwdView
+          },
+        ]
       },
     ]
   },

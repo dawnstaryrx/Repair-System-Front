@@ -128,7 +128,18 @@
                           <span v-if="ifUserIsRole(user.id, 'JIE_XIAN').data == true">是</span>
                           <span v-if="ifUserIsRole(user.id, 'JIE_XIAN').data == false">否</span>
                         </td>
-                        <td>3</td>
+                        <td>
+                          <span v-if="ifUserIsRole(user.id, 'JIE_XIAN').data == true">
+                            <button @click="delUserRole(user.id, 'JIE_XIAN')" type="button" class="btn btn-link">
+                              取消
+                            </button>
+                          </span>
+                          <span v-if="ifUserIsRole(user.id, 'JIE_XIAN').data == false">
+                            <button  @click="addUserRole(user.id, 'JIE_XIAN')" type="button" class="btn btn-link">
+                              设为
+                            </button>
+                          </span>
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row"> 维修工程师</th>
@@ -136,7 +147,18 @@
                           <span v-if="ifUserIsRole(user.id, 'WEI_XIU').data == true">是</span>
                           <span v-if="ifUserIsRole(user.id, 'WEI_XIU').data == false">否</span>
                         </td>
-                        <td>3</td>
+                        <td>
+                          <span v-if="ifUserIsRole(user.id, 'WEI_XIU').data == true">
+                            <button @click="delUserRole(user.id, 'WEI_XIU')" type="button" class="btn btn-link">
+                              取消
+                            </button>
+                          </span>
+                          <span v-if="ifUserIsRole(user.id, 'WEI_XIU').data == false">
+                            <button  @click="addUserRole(user.id, 'WEI_XIU')" type="button" class="btn btn-link">
+                              设为
+                            </button>
+                          </span>
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row"> 回访员</th>
@@ -144,7 +166,18 @@
                           <span v-if="ifUserIsRole(user.id, 'HUI_FANG').data == true">是</span>
                           <span v-if="ifUserIsRole(user.id, 'HUI_FANG').data == false">否</span>
                         </td>
-                        <td>3</td>
+                        <td>
+                          <span v-if="ifUserIsRole(user.id, 'HUI_FANG').data == true">
+                            <button @click="delUserRole(user.id, 'HUI_FANG')" type="button" class="btn btn-link">
+                              取消
+                            </button>
+                          </span>
+                          <span v-if="ifUserIsRole(user.id, 'HUI_FANG').data == false">
+                            <button  @click="addUserRole(user.id, 'HUI_FANG')" type="button" class="btn btn-link">
+                              设为
+                            </button>
+                          </span>
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row"> 管理员</th>
@@ -152,7 +185,18 @@
                           <span v-if="ifUserIsRole(user.id, 'GUAN_LI').data == true">是</span>
                           <span v-if="ifUserIsRole(user.id, 'GUAN_LI').data == false">否</span>
                         </td>
-                        <td>3</td>
+                        <td>
+                          <span v-if="ifUserIsRole(user.id, 'GUAN_LI').data == true">
+                            <button @click="delUserRole(user.id, 'GUAN_LI')" type="button" class="btn btn-link">
+                              取消
+                            </button>
+                          </span>
+                          <span v-if="ifUserIsRole(user.id, 'GUAN_LI').data == false">
+                            <button  @click="addUserRole(user.id, 'GUAN_LI')" type="button" class="btn btn-link">
+                              设为
+                            </button>
+                          </span>
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row"> 禁用</th>
@@ -160,7 +204,18 @@
                           <span v-if="ifUserIsRole(user.id, 'JIN_YONG').data == true">是</span>
                           <span v-if="ifUserIsRole(user.id, 'JIN_YONG').data == false">否</span>
                         </td>
-                        <td>3</td>
+                        <td>
+                          <span v-if="ifUserIsRole(user.id, 'JIN_YONG').data == true">
+                            <button @click="delUserRole(user.id, 'JIN_YONG')" type="button" class="btn btn-link">
+                              取消
+                            </button>
+                          </span>
+                          <span v-if="ifUserIsRole(user.id, 'JIN_YONG').data == false">
+                            <button  @click="addUserRole(user.id, 'JIN_YONG')" type="button" class="btn btn-link">
+                              设为
+                            </button>
+                          </span>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -169,9 +224,29 @@
             </div>
           </div>
         </div>
-        <button v-if="user.username != 'admin'" type="button" class="btn btn-link" data-bs-toggle="modal">
+        <button v-if="user.username != 'admin'" type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getResetPwdBtnId(user.id)>
           重置密码
         </button>
+        <!-- 重置密码Modal -->
+        <div class="modal fade" :id=getResetPwdModelId(user.id) tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">重置密码</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align: left;">
+                  你确定重置用户
+                  <span style="font-weight: bolder;">{{user.name}}</span>
+                  的密码吗？
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                  <button @click="resetPwd(user.id)" type="button" data-bs-dismiss="modal" class="btn btn-danger">确定</button>
+                </div>
+              </div>
+            </div>
+          </div>
       </td>
     </tr>
   </tbody>
@@ -203,7 +278,7 @@
 </template>
 
 <script>
-import {getUserInfoByIdService, userRegisterService, getUserListService, getUserIsRoleService} from "@/api/user.js"
+import {addUserRoleService, delUserRoleService,getUserInfoByIdService, userRegisterService, getUserListService, getUserIsRoleService, resetPwdByManagerService} from "@/api/user.js"
 import alertUtil from '@/utils/alertUtil';
 
 export default {
@@ -225,6 +300,33 @@ export default {
     }
   },
   methods:{
+    resetPwd(id){
+      let result = resetPwdByManagerService(id)
+      if(result.code === 1){
+          alertUtil.message(result.message, "danger");
+      }
+      if(result.code === 0){
+          alertUtil.message(result.message, "success");
+      }
+    },
+    addUserRole(id, role){
+      let result = addUserRoleService(id, role)
+      if(result.code === 1){
+          alertUtil.message(result.message, "danger");
+      }
+      if(result.code === 0){
+          alertUtil.message(result.message+"，请刷新页面", "success");
+      }
+    },
+    delUserRole(id, role){
+      let result = delUserRoleService(id, role)
+      if(result.code === 1){
+          alertUtil.message(result.message, "danger");
+      }
+      if(result.code === 0){
+          alertUtil.message(result.message+"，请刷新页面", "success");
+      }
+    },
     ifUserIsRole(id, role){
       return getUserIsRoleService(id, role);
     },
@@ -267,6 +369,12 @@ export default {
     },
     getupdateRoleModelId(id){
       return "User" + id + "updateRole"
+    },
+    getResetPwdBtnId(id){
+      return "#User" + id + "ResetPwd"
+    },
+    getResetPwdModelId(id){
+      return "User" + id + "ResetPwd"
     }
   },
   created(){

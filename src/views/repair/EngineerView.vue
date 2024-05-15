@@ -44,7 +44,7 @@
         <!-- <td>{{ repairRequest.id }}</td> -->
         <td>{{ repairRequest.orderNumber }}</td>
         <td>
-          <span v-if="getStatus(repairRequest.id).status == 0" style="background-color: red; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
+          <span v-if="getStatus(repairRequest.id).status === 0" style="background-color: red; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
           <span v-else-if="getStatus(repairRequest.id).status == 1" style="background-color: orange; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
           <span v-else-if="getStatus(repairRequest.id).status == 2" style="background-color: lightseagreen; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
           <span v-else-if="getStatus(repairRequest.id).status == 3" style="background-color: green; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>

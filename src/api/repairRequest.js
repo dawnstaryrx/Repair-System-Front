@@ -2,6 +2,9 @@ import $ from 'jquery'
 import {
     useTokenStore
 } from '@/stores/token.js'
+import {
+    BASE_URL
+} from '@/utils/commonUtil'
 
 // 新增维修请求
 export const repairRequestAddService = (repairRequestAddInfo) => {
@@ -12,7 +15,7 @@ export const repairRequestAddService = (repairRequestAddInfo) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/repair/request",
+        url: BASE_URL + "/repair/request",
         data: JSON.stringify(repairRequestAddInfo),
         contentType: "application/json; charset=utf-8",
         type: "put",
@@ -36,7 +39,7 @@ export const getRepairRequestListService = (repairRequestPageSearchInfo) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/repair/request",
+        url: BASE_URL + "/repair/request",
         type: "get",
         data: repairRequestPageSearchInfo,
         async: false,
@@ -59,7 +62,7 @@ export const getRepairRequestStatusService = (id) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/repair/request/status",
+        url: BASE_URL + "/repair/request/status",
         type: "get",
         data: {
             id: id
@@ -84,7 +87,7 @@ export const getRepairRequestByIdService = (id) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/repair/request/info",
+        url: BASE_URL + "/repair/request/info",
         type: "get",
         data: {
             id: id
@@ -109,7 +112,7 @@ export const repairRequestUpdateService = (repairRequestUpdateInfo) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/repair/request",
+        url: BASE_URL + "/repair/request",
         data: JSON.stringify(repairRequestUpdateInfo),
         contentType: "application/json; charset=utf-8",
         type: "post",
@@ -133,7 +136,7 @@ export const repairRequestDeleteService = (id) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/repair/request",
+        url: BASE_URL + "/repair/request",
         data: {
             id: id
         },

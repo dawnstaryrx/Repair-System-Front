@@ -1,37 +1,37 @@
 <template>
   <form target="iframe">
     <div class="row mb-3">
-      <label for="computerName" class="col-sm-2 col-form-label">公司名称</label>
+      <label for="companyName" class="col-sm-2 col-form-label">公司名称</label>
       <div class="col-sm-10">
-        <input v-model="computerInfo.computerName" type="text" class="form-control" id="computerName">
+        <input v-model="companyInfo.companyName" type="text" class="form-control" id="companyName">
       </div>
     </div>
     <div class="row mb-3">
-      <label for="computerSite" class="col-sm-2 col-form-label">公司网址</label>
+      <label for="companySite" class="col-sm-2 col-form-label">公司网址</label>
       <div class="col-sm-10">
-        <input v-model="computerInfo.computerSite" type="text" class="form-control" id="computerSite">
+        <input v-model="companyInfo.companySite" type="text" class="form-control" id="companySite">
       </div>
     </div>
-    <button @click="updateComputerInfo()" type="submit" class="btn btn-primary">修改</button>
+    <button @click="updateCompanyInfo()" type="submit" class="btn btn-primary">修改</button>
   </form>
   <iframe id="frame" name="iframe" style="display:none;"></iframe>
 </template>
 
 <script>
-import {getComputerInfoService, updateComputerInfoService} from '@/api/constant.js'
+import {getCompanyInfoService, updateCompanyInfoService} from '@/api/constant.js'
 import alertUtil from '@/utils/alertUtil';
 export default {
   data(){
     return{
-      computerInfo:{}
+      companyInfo:{}
     }
   },
   created() {
-      this.computerInfo = getComputerInfoService().data
+      this.companyInfo = getCompanyInfoService().data
   },
   methods:{
-    updateComputerInfo(){
-      let result = updateComputerInfoService(this.computerInfo)
+    updateCompanyInfo(){
+      let result = updateCompanyInfoService(this.companyInfo)
       if(result.code === 1){
           alertUtil.message(result.message, "danger");
       }

@@ -2,6 +2,9 @@ import $ from 'jquery'
 import {
     useTokenStore
 } from '@/stores/token.js'
+import {
+    BASE_URL
+} from '@/utils/commonUtil'
 
 // 新增维修回访
 export const repairRevisitAddService = (repairRevisitAddInfo) => {
@@ -12,7 +15,7 @@ export const repairRevisitAddService = (repairRevisitAddInfo) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/repair/revisit",
+        url: BASE_URL + "/repair/revisit",
         data: JSON.stringify(repairRevisitAddInfo),
         contentType: "application/json; charset=utf-8",
         type: "put",
@@ -36,7 +39,7 @@ export const repairRevisitFindByIdService = (id) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/repair/revisit/"+id,
+        url: BASE_URL + "/repair/revisit/"+id,
         type: "get",
         async: false,
         success(resp) {

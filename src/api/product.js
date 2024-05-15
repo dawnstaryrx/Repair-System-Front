@@ -2,6 +2,9 @@ import $ from 'jquery'
 import {
     useTokenStore
 } from '@/stores/token.js'
+import {
+    BASE_URL
+} from '@/utils/commonUtil'
 
 // 新增产品
 export const productAddService = (productAddInfo) => {
@@ -12,7 +15,7 @@ export const productAddService = (productAddInfo) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/product",
+        url: BASE_URL + "/product",
         data: JSON.stringify(productAddInfo),
         contentType: "application/json; charset=utf-8",
         type: "put",
@@ -36,7 +39,7 @@ export const productUpdateService = (productUpdateInfo) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/product",
+        url: BASE_URL + "/product",
         data: JSON.stringify(productUpdateInfo),
         contentType: "application/json; charset=utf-8",
         type: "post",
@@ -60,7 +63,7 @@ export const productDeleteService = (id) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/product",
+        url: BASE_URL + "/product",
         data: {
             id:id
         },
@@ -85,7 +88,7 @@ export const getProductListService = (productListSearchInfo) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/product",
+        url: BASE_URL + "/product",
         type: "get",
         data: productListSearchInfo,
         async: false,
@@ -108,7 +111,7 @@ export const getProductModelListService = (productType) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/product/model",
+        url: BASE_URL + "/product/model",
         data: {
             productType:productType
         },
@@ -133,7 +136,7 @@ export const getProductIdListService = (productModel) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/product/id",
+        url: BASE_URL + "/product/id",
         data: {
             productModel:productModel
         },

@@ -97,7 +97,7 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <!-- <th scope="col">流水号</th> -->
+        <th scope="col">流水号</th>
         <th scope="col">维修单号</th>
         <th scope="col">状态</th>
         <th scope="col">客户名</th>
@@ -118,14 +118,13 @@
     <tbody>
       <tr v-for="(repairRequest, index) in this.repairRequestPageList" :key="index">
         <th scope="row"> {{ index+1 }} </th>
-        <!-- <td>{{ repairRequest.id }}</td> -->
+        <td>{{ repairRequest.id }}</td>
         <td>{{ repairRequest.orderNumber }}</td>
         <td v-if="getStatus(repairRequest.id).status != null">
           <span v-if="getStatus(repairRequest.id).status == 0" style="background-color: red; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
           <span v-else-if="getStatus(repairRequest.id).status == 1" style="background-color: orange; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
           <span v-else-if="getStatus(repairRequest.id).status == 2" style="background-color: lightseagreen; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
           <span v-else-if="getStatus(repairRequest.id).status == 3" style="background-color: green; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
-          <span v-else-if="getStatus(repairRequest.id).status == 5" style="background-color: blue; color: white;">{{ getStatus(repairRequest.id).statusName }}</span>
         </td>
         <td>{{ repairRequest.customerName }}</td>
         <td>{{ repairRequest.engineerName }}</td>
@@ -299,7 +298,7 @@
           <button v-if="getStatus(repairRequest.id).status == 0" type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getDelBtnId(repairRequest.id)>
             删除
           </button>
-          <!-- 查看Modal -->
+          <!-- 删除Modal -->
           <div class="modal fade" :id=getDelModelId(repairRequest.id) tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
