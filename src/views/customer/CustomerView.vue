@@ -211,7 +211,7 @@
           </div>
         </div>
 
-        <button type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getDelBtnId(customer.id)>
+        <button v-if="userIsRole('GUAN_LI')" type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getDelBtnId(customer.id)>
           删除
         </button>
         <!-- 查看Modal -->
@@ -265,6 +265,8 @@
 <script>
 import {customerInfoService, customerAddService, customerUpdateService, customerDeleteService} from "@/api/customer.js"
 import {getUserInfoByIdService} from "@/api/user.js"
+import {getUserIsRoleService} from '@/api/user.js'
+import { useUserInfoStore } from '@/stores/userInfo.js'
 import alertUtil from '@/utils/alertUtil';
 
 export default {
@@ -299,6 +301,11 @@ export default {
     }
   },
   methods:{
+    userIsRole(role){
+      const userInfoStore = useUserInfoStore()
+      let nowUser = userInfoStore.info
+      return getUserIsRoleService(nowUser.id, role).data
+    },
     addCustomer(){
       let result = customerAddService(this.customerAddData)
       if(result.code === 1){

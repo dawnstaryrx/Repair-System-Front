@@ -189,7 +189,7 @@
               </div>
             </div>
 
-            <button type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getDelBtnId(product.id)>
+            <button v-if="userIsRole('GUAN_LI')" type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getDelBtnId(product.id)>
               删除
             </button>
             <!-- 删除Modal -->
@@ -247,6 +247,9 @@ import { getAllTypeService } from '@/api/productType.js'
 import { productAddService, getProductListService, productUpdateService, productDeleteService } from '@/api/product.js'
 import alertUtil from '@/utils/alertUtil';
 import {getUserInfoByIdService} from "@/api/user.js"
+import {getUserIsRoleService} from '@/api/user.js'
+import { useUserInfoStore } from '@/stores/userInfo.js'
+
 
 export default {
   data(){
@@ -281,6 +284,11 @@ export default {
     console.log(this.productList)
   },
   methods:{
+    userIsRole(role){
+      const userInfoStore = useUserInfoStore()
+      let nowUser = userInfoStore.info
+      return getUserIsRoleService(nowUser.id, role).data
+    },
     getLookBtnId(id){
       return "#Product" + id + "look"
     },

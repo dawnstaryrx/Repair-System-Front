@@ -73,3 +73,28 @@ export const getDashBoardInfoService = () => {
     })
     return result;
 }
+// 获取报表展示数据
+export const getPrintDataService = (printDTO) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: BASE_URL + "/print",
+        type: "get",
+        data:{
+            customerId:printDTO.customerId,
+            year:printDTO.year
+        },
+        async: false,
+        success(resp) {
+            result = resp;
+        },
+        error(resp) {
+            result = resp;
+        }
+    })
+    return result;
+}

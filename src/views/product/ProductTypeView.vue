@@ -52,7 +52,7 @@
             创建时间 
             <span style="margin-left: 5px; cursor:pointer" @click="sortByTimeChange()">↕️</span>
           </th>
-          <th scope="col">操作</th>
+          <th scope="col" v-if="userIsRole('GUAN_LI')">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -62,8 +62,8 @@
           <td>{{ type.name }}</td>
           <td> {{ getUsernameById(type.createUser) }} </td>
           <td>{{ type.createTime }}</td>
-          <td> 
-            <button type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getDelBtnId(type.id)>
+          <td v-if="userIsRole('GUAN_LI')"> 
+            <button  type="button" class="btn btn-link" data-bs-toggle="modal" :data-bs-target=getDelBtnId(type.id)>
               删除
             </button>
             <!-- 查看Modal -->
@@ -120,6 +120,9 @@
 import { typeAddService, getTypeListService, typeDeleteService } from '@/api/productType.js'
 import alertUtil from '@/utils/alertUtil';
 import {getUserInfoByIdService} from "@/api/user.js"
+import {getUserIsRoleService} from '@/api/user.js'
+import { useUserInfoStore } from '@/stores/userInfo.js'
+
 export default {
   data(){
     return{
@@ -134,6 +137,11 @@ export default {
     }
   },
   methods:{
+    userIsRole(role){
+      const userInfoStore = useUserInfoStore()
+      let nowUser = userInfoStore.info
+      return getUserIsRoleService(nowUser.id, role).data
+    },
     add(){
       let result = typeAddService(this.name)
       if(result.code === 1){
